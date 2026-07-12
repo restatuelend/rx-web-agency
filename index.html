@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Website dan Landing Page - RX Web Agency</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        darkbg: '#0a0a0c',
+                        cyanAccent: '#00f0ff',
+                        blueAccent: '#0066ff',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #0a0a0c;
+            color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar to keep it futuristic */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+        /* Glassmorphism utility */
+        .glass-header {
+            background: rgba(10, 10, 12, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-btn {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 240, 255, 0.2));
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+        }
+        .glass-btn:hover {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.4), rgba(0, 240, 255, 0.4));
+            border: 1px solid rgba(0, 240, 255, 0.6);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
+            transform: translateY(-1px);
+        }
+        /* Canvas positioning fixed for frame-by-frame animation sequence */
+        .canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        /* Scroll container targeting specific sections */
+        .scroll-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            z-index: 2;
+            padding: 0 10%;
+        }
+        /* Fade shift classes for Intersection Observer mimicking Framer Motion */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Glow effect elements */
+        .glow-text {
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+        }
+
+
+
+    </style>
+</head>
+<body class="font-sans">
+
+    <header class="fixed top-0 left-0 w-full z-50 glass-header px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <img src="logo.jpg" alt="RX Logo" class="w-10 h-10 rounded-lg object-cover border border-neutral-800" onerror="this.src='https://placehold.co/100x100/111/fff?text=RX'">
+            <span class="font-mono font-bold text-sm tracking-wider text-neutral-400 hidden sm:inline">RX WEB AGENCY</span>
+        </div>
+        <div>
+            <a href="https://wa.me/6281312357574" target="_blank" rel="noopener noreferrer" class="glass-btn font-mono text-xs uppercase tracking-widest px-5 py-2.5 rounded-full text-white inline-flex items-center gap-2">
+                Hubungi Kami <span class="text-cyanAccent">→</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="canvas-container">
+        <!-- Removed dark overlay layer to keep visuals Hyper HD and clean -->
+        <canvas id="sequence-canvas"></canvas>
+    </div>
+
+    <main class="relative z-10">
+
+        <section class="scroll-section justify-end" id="sec1">
+            <div class="max-w-xl text-right reveal-element relative">
+                <span class="font-mono text-xs text-cyanAccent uppercase tracking-widest block mb-3">// BRAND PREVIEW</span>
+
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight leading-none text-white font-sans glow-text">RX Web Agency</h1>
+                <p class="font-mono text-sm text-neutral-400 mb-6 leading-relaxed">
+                    Modern Website dan Landing Page. Kami merancang arsitektur digital masa depan dengan performa ekstrem, visual sinematik, serta konversi tinggi untuk bisnis digital progresif Anda.
+                </p>
+                <a href="#sec2" class="font-mono text-xs text-neutral-300 hover:text-cyanAccent transition-colors">// scroll ke bawah untuk mengeksplorasi</a>
+            </div>
+        </section>
+
+
+        <section class="scroll-section justify-start" id="sec2">
+            <div class="max-w-xl text-left reveal-element">
+                <span class="font-mono text-xs text-red-400 uppercase tracking-widest block mb-3">// THE PROBLEM</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-white font-sans">Bisnis yang Belum Terhubung</h2>
+                <p class="font-mono text-sm text-neutral-400 leading-relaxed">
+                    Banyak bisnis hebat tenggelam di era digital karena platform yang usang. Website lambat dan tidak responsif membunuh 80% potensi penjualan Anda sebelum konsumen sempat melihat produk Anda.
+                </p>
+            </div>
+        </section>
+
+        <section class="scroll-section justify-end" id="sec3">
+            <div class="max-w-xl text-right reveal-element">
+                <span class="font-mono text-xs text-cyanAccent uppercase tracking-widest block mb-3">// THE SOLUTION</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-white font-sans">Website Profesional</h2>
+                <p class="font-mono text-sm text-neutral-400 leading-relaxed">
+                    Kami menghadirkan website premium yang dirancang dari nol menggunakan arsitektur termutakhir. Solusi digital yang tidak hanya berfungsi sebagai kartu nama, melainkan mesin pencetak profit otomatis.
+                </p>
+            </div>
+        </section>
+
+        <section class="scroll-section justify-start" id="sec4">
+            <div class="max-w-xl text-left reveal-element">
+                <span class="font-mono text-xs text-cyanAccent uppercase tracking-widest block mb-3">// VISUAL ARTISTRY</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-white font-sans">Desain Modern (UI/UX)</h2>
+                <p class="font-mono text-sm text-neutral-400 leading-relaxed">
+                    Pendekatan estetik futuristik yang memanjakan mata pengguna. Antarmuka interaktif dengan layout clean, tipografi presisi, dan transisi dinamis yang memastikan retensi audiens meningkat drastis.
+                </p>
+            </div>
+        </section>
+
+        <section class="scroll-section justify-end" id="sec5">
+            <div class="max-w-xl text-right reveal-element">
+                <span class="font-mono text-xs text-cyanAccent uppercase tracking-widest block mb-3">// ADAPTABILITY</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-white font-sans">Responsif di Semua Perangkat</h2>
+                <p class="font-mono text-sm text-neutral-400 leading-relaxed">
+                    Pengalaman navigasi yang sempurna baik di layar smartphone ultra-kecil, tablet, hingga monitor workstation 4K. Fleksibilitas grid tingkat tinggi menjamin konten Anda tampil konsisten tanpa celah cacat.
+                </p>
+            </div>
+        </section>
+
+        <section class="scroll-section justify-start" id="sec6">
+            <div class="max-w-xl text-left reveal-element">
+                <span class="font-mono text-xs text-cyanAccent uppercase tracking-widest block mb-3">// OPTIMIZATION</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-white font-sans">Kecepatan (Fast Loading)</h2>
+                <p class="font-mono text-sm text-neutral-400 leading-relaxed">
+                    Menggunakan teknik optimasi mutakhir, server side rendering, dan kompresi aset tingkat lanjut. Website Anda termuat dalam hitungan milidetik. Karena di dunia digital, setiap detik penundaan berarti kehilangan pelanggan.
+                </p>
+            </div>
+        </section>
+
+        <section class="scroll-section justify-end" id="sec7">
+            <div class="max-w-xl text-right reveal-element">
+                <span class="font-mono text-xs text-cyanAccent uppercase tracking-widest block mb-3">// VISIBILITY</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-white font-sans">SEO Friendly</h2>
+                <p class="font-mono text-sm text-neutral-400 leading-relaxed">
+                    Struktur semantik kode HTML5 yang bersih dan terindeks sempurna oleh mesin pencari Google. Kami memastikan fondasi teknis SEO terpasang kuat agar bisnis Anda mudah merajai halaman utama pencarian.
+                </p>
+            </div>
+        </section>
+
+        <section class="scroll-section justify-start" id="sec8">
+            <div class="max-w-xl text-left reveal-element">
+                <span class="font-mono text-xs text-cyanAccent uppercase tracking-widest block mb-3">// SECURITY LAYER</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-white font-sans">Keamanan Tinggi</h2>
+                <p class="font-mono text-sm text-neutral-400 leading-relaxed">
+                    Protokol perlindungan enkripsi berlapis, pencegahan ancaman cyber standar industri, serta konfigurasi server yang kokoh. Memberikan ketenangan penuh untuk Anda dan kredibilitas mutlak bagi data konsumen.
+                </p>
+            </div>
+        </section>
+
+        <section class="scroll-section justify-center text-center" id="sec9">
+            <div class="max-w-2xl reveal-element mx-auto">
+                <span class="font-mono text-xs text-cyanAccent uppercase tracking-widest block mb-3">// NEXT STEP</span>
+                <h2 class="text-4xl md:text-6xl font-bold mb-6 tracking-tight text-white font-sans glow-text">Siap Merevolusi Bisnis Anda?</h2>
+                <p class="font-mono text-sm text-neutral-400 mb-8 max-w-lg mx-auto leading-relaxed">
+                    Jangan biarkan kompetitor merebut pasar Anda dengan platform digital yang lebih baik. Konsultasikan proyek impian Anda sekarang bersama tim expert RX Web Agency.
+                </p>
+                <div>
+                    <a href="https://wa.me/6281312357574" target="_blank" rel="noopener noreferrer" class="glass-btn font-mono text-sm uppercase tracking-widest px-8 py-4 rounded-full text-white inline-block">
+                        MULAI KOLABORASI
+                    </a>
+                </div>
+                <p class="font-mono text-xs text-neutral-600 mt-12">// © 2026 RX Web Agency. Engineered for Performance.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('sequence-canvas');
+            const context = canvas.getContext('2d');
+
+            // Total frames requested (desktop vs mobile)
+            const frameCountDesktop = 600;
+            const frameCountMobile = 240;
+
+            // Detect mobile (simple heuristic)
+            const isMobile = window.matchMedia('(max-width: 767px)').matches;
+            const frameCount = isMobile ? frameCountMobile : frameCountDesktop;
+
+            // Generate sequence filenames padding numbers
+            // Desktop: images/00001.jpg .. images/00600.jpg
+            // Mobile : images-m/00001.jpg .. images-m/00240.jpg
+            const baseFolder = isMobile ? 'images-m' : 'images';
+            const currentFrame = index => (
+                `${baseFolder}/${index.toString().padStart(5, '0')}.jpg`
+            );
+
+            // Array to store preloaded Image objects
+            const images = [];
+            let imagesLoaded = 0;
+
+            // Preload all images to ensure perfect 60fps local delivery without network lag during scrolls
+            for (let i = 1; i <= frameCount; i++) {
+                const img = new Image();
+                img.src = currentFrame(i);
+                img.onload = () => {
+                    imagesLoaded++;
+                    if (imagesLoaded === frameCount) {
+                        // Once completely loaded, draw frame 1 inside the canvas
+                        renderFrame(0);
+                    }
+                };
+                // Fallback mechanism to simulate sequence visually using standard placeholders if images are missing locally
+                img.onerror = function() {
+                    imagesLoaded++;
+                    // Fallback to auto-generated background logic inside render if real files don't resolve
+                };
+                images.push(img);
+            }
+
+            // High performance canvas resizing for HiDPI/Retina
+            // Fix blur by rendering at devicePixelRatio while keeping CSS pixels consistent.
+            function resizeCanvas() {
+                const dpr = Math.max(1, window.devicePixelRatio || 1);
+                const cssWidth = window.innerWidth;
+                const cssHeight = window.innerHeight;
+
+                canvas.width = Math.floor(cssWidth * dpr);
+                canvas.height = Math.floor(cssHeight * dpr);
+
+                // Keep the displayed size in CSS pixels
+                canvas.style.width = `${cssWidth}px`;
+                canvas.style.height = `${cssHeight}px`;
+
+                // Ensure drawing uses CSS pixel coordinates
+                if (context) {
+                    context.setTransform(dpr, 0, 0, dpr, 0, 0);
+                    context.imageSmoothingEnabled = true;
+                }
+
+                // Re-render current active frame upon resizing viewport
+                const scrollTop = window.scrollY;
+                const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollFraction = maxScrollTop > 0 ? scrollTop / maxScrollTop : 0;
+                const frameIndex = Math.min(frameCount - 1, Math.floor(scrollFraction * frameCount));
+                renderFrame(frameIndex);
+            }
+
+
+            window.addEventListener('resize', resizeCanvas);
+            // Dynamic single execution right after setups
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            // Ensure the correct frame corresponds to the current scroll position right after init
+            // (fix: initial frame can be out of sync until user scrolls)
+            // Alignment: sec2 should start at 00012..118 depending on desktop/mobile
+            const sec2 = document.getElementById('sec2');
+            const sec2Rect = sec2 ? sec2.getBoundingClientRect() : null;
+            const scrollYNow = document.documentElement.scrollTop || window.scrollY;
+            const sec2TopInDoc = sec2 ? (sec2Rect.top + scrollYNow) : 0;
+
+            // sec2 start (mobile target 00038, desktop target 00118)
+            const targetFrameNumberAtSec2 = isMobile ? 38 : 118;
+            const targetIndexAtSec2 = Math.max(0, Math.min(frameCount - 1, targetFrameNumberAtSec2 - 1));
+
+            // Compute a scroll-based index that is anchored at sec2TopInDoc (no jump)
+            const scrollTopForFrame = Math.max(0, scrollYNow - sec2TopInDoc);
+            const totalScrollableForFrames = Math.max(1, (document.documentElement.scrollHeight - window.innerHeight - sec2TopInDoc));
+            const scrollFractionAnchored = totalScrollableForFrames > 0 ? (scrollTopForFrame / totalScrollableForFrames) : 0;
+            const relativeIndexAnchored = Math.floor(scrollFractionAnchored * (frameCount - 1));
+            const indexToRenderNow = Math.min(frameCount - 1, Math.max(0, (targetIndexAtSec2 + relativeIndexAnchored) - targetIndexAtSec2));
+            renderFrame(indexToRenderNow);
+
+            // Optimized Draw Frame function using requestAnimationFrame handles cover/contain calculations dynamically
+            function renderFrame(index) {
+                if (!context || !canvas) return;
+
+                // Draw in CSS pixels (because we set transform to dpr in resizeCanvas)
+                const cssWidth = window.innerWidth;
+                const cssHeight = window.innerHeight;
+
+                context.clearRect(0, 0, cssWidth, cssHeight);
+
+                const img = images[index];
+
+                // Verify image status or fallback to generative canvas art
+                if (img && img.complete && img.naturalWidth !== 0) {
+                    // Object-fit: cover algorithm implemented mathematically in Canvas 2D
+                    const imgRatio = img.width / img.height;
+                    const canvasRatio = cssWidth / cssHeight;
+                    let drawWidth, drawHeight, drawX, drawY;
+
+                    if (canvasRatio > imgRatio) {
+                        drawWidth = cssWidth;
+                        drawHeight = cssWidth / imgRatio;
+                        drawX = 0;
+                        drawY = (cssHeight - drawHeight) / 2;
+                    } else {
+                        drawWidth = cssHeight * imgRatio;
+                        drawHeight = cssHeight;
+                        drawX = (cssWidth - drawWidth) / 2;
+                        drawY = 0;
+                    }
+
+                    context.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+                } else {
+                    // Futuristic Generative fallback pattern if real frame files are missing locally in paths
+                    const gradient = context.createRadialGradient(
+                        canvas.width / 2, canvas.height / 2, 10,
+                        canvas.width / 2, canvas.height / 2, Math.max(canvas.width, canvas.height) * 0.8
+                    );
+                    // Cycle colors dynamically based on scrolling frame index
+                    const hue = Math.floor((index / frameCount) * 60) + 200; // Cyan to Purple transitions
+                    gradient.addColorStop(0, `hsla(${hue}, 85%, 8%, 1)`);
+                    gradient.addColorStop(1, '#0a0a0c');
+                    
+                    context.fillStyle = gradient;
+                    context.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Technical grid line generation overlay
+                    context.strokeStyle = 'rgba(0, 240, 255, 0.03)';
+                    context.lineWidth = 1;
+                    const gridSize = 60;
+                    
+                    // Vertical lines
+                    for (let x = 0; x < canvas.width; x += gridSize) {
+                        context.beginPath();
+                        context.moveTo(x, 0);
+                        context.lineTo(x, canvas.height);
+                        context.stroke();
+                    }
+                    // Horizontal lines
+                    for (let y = 0; y < canvas.height; y += gridSize) {
+                        context.beginPath();
+                        context.moveTo(0, y);
+                        context.lineTo(canvas.width, y);
+                        context.stroke();
+                    }
+
+                    // Add dynamic floating core node
+                    context.shadowBlur = 40;
+                    context.shadowColor = 'rgba(0, 240, 255, 0.4)';
+                    context.fillStyle = 'rgba(0, 240, 255, 0.15)';
+                    context.beginPath();
+                    const radius = 100 + (index * 1.5);
+                    context.arc(canvas.width / 2, canvas.height / 2, radius, 0, Math.PI * 2);
+                    context.fill();
+                    context.shadowBlur = 0; // Reset canvas effects
+                }
+            }
+
+            // Sync frame-by-frame loading using requestAnimationFrame window scrolling listeners
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const scrollTop = window.scrollY;
+                        const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
+                        
+                        // Anchor frame to sec2 so that when sec2 starts, frame ~= images/00112.jpg
+                        const sec2 = document.getElementById('sec2');
+                        const sec2Rect = sec2 ? sec2.getBoundingClientRect() : null;
+                        const sec2TopInDoc = sec2 ? (sec2Rect.top + scrollTop) : 0;
+
+                        const scrollTopForFrame = Math.max(0, scrollTop - sec2TopInDoc);
+                        const totalScrollableForFrames = Math.max(1, (document.documentElement.scrollHeight - window.innerHeight - sec2TopInDoc));
+                        const scrollFractionAnchored = totalScrollableForFrames > 0 ? (scrollTopForFrame / totalScrollableForFrames) : 0;
+
+                        // Anchors (no jump between sec1 -> sec2)
+                        // sec1 start frame (mobile keep, desktop keep)
+                        const targetFrameNumberAtSec1Start = isMobile ? 20 : 80;
+                        const targetIndexAtSec1Start = Math.max(0, Math.min(frameCount - 1, targetFrameNumberAtSec1Start - 1));
+
+                        // sec2 start frame (mobile target 00038, desktop 00118)
+                        const targetFrameNumberAtSec2 = isMobile ? 38 : 118;
+                        const targetIndexAtSec2 = Math.max(0, Math.min(frameCount - 1, targetFrameNumberAtSec2 - 1));
+
+                        // Create a 2-segment mapping so frame progresses smoothly:
+                        // Segment A: sec1TopInDoc -> sec2TopInDoc
+                        // Segment B: sec2TopInDoc -> end
+                        const sec1 = document.getElementById('sec1');
+                        const sec1Rect = sec1 ? sec1.getBoundingClientRect() : null;
+                        const sec1TopInDoc = sec1 ? (sec1Rect.top + scrollTop) : 0;
+
+                        // Multi-segment mapping (especially for mobile) so each section aligns without jumping.
+                        // Targets are expressed as image numbers (1-based), then converted to 0-based frameIndex.
+                        const clampIndex = (n) => Math.min(frameCount - 1, Math.max(0, n));
+
+                        // Define section top positions (in document coordinates)
+                        const sec3 = document.getElementById('sec3');
+                        const sec4 = document.getElementById('sec4');
+                        const sec5 = document.getElementById('sec5');
+                        const sec6 = document.getElementById('sec6');
+                        const sec7 = document.getElementById('sec7');
+                        const sec8 = document.getElementById('sec8');
+                        const sec9 = document.getElementById('sec9');
+
+                        const sec3TopInDoc = sec3 ? (sec3.getBoundingClientRect().top + scrollTop) : 0;
+                        const sec4TopInDoc = sec4 ? (sec4.getBoundingClientRect().top + scrollTop) : 0;
+                        const sec5TopInDoc = sec5 ? (sec5.getBoundingClientRect().top + scrollTop) : 0;
+                        const sec6TopInDoc = sec6 ? (sec6.getBoundingClientRect().top + scrollTop) : 0;
+                        const sec7TopInDoc = sec7 ? (sec7.getBoundingClientRect().top + scrollTop) : 0;
+                        const sec8TopInDoc = sec8 ? (sec8.getBoundingClientRect().top + scrollTop) : 0;
+                        const sec9TopInDoc = sec9 ? (sec9.getBoundingClientRect().top + scrollTop) : 0;
+
+                        // Image number targets for mobile:
+                        // sec2=00038, sec3=00070, sec4=00087, sec5=00125, sec6=00146, sec7=00177, sec8=00204, sec9=00240
+                        // For desktop we keep original anchors via interpolation; use proportional fallback.
+                        const mobileTargets = {
+                            sec1: targetFrameNumberAtSec1Start,
+                            sec2: 38,
+                            sec3: 70,
+                            sec4: 87,
+                            sec5: 125,
+                            sec6: 146,
+                            sec7: 177,
+                            sec8: 204,
+                            sec9: 240
+                        };
+
+                        // Convert targets to 0-based frameIndex
+                        const idx1 = clampIndex(mobileTargets.sec1 - 1);
+                        const idx2 = clampIndex(mobileTargets.sec2 - 1);
+                        const idx3 = clampIndex(mobileTargets.sec3 - 1);
+                        const idx4 = clampIndex(mobileTargets.sec4 - 1);
+                        const idx5 = clampIndex(mobileTargets.sec5 - 1);
+                        const idx6 = clampIndex(mobileTargets.sec6 - 1);
+                        const idx7 = clampIndex(mobileTargets.sec7 - 1);
+                        const idx8 = clampIndex(mobileTargets.sec8 - 1);
+                        const idx9 = clampIndex(mobileTargets.sec9 - 1);
+
+                        let frameIndex;
+                        if (!isMobile) {
+                            // Desktop: keep existing 2-segment behavior for stability
+                            if (scrollTop <= sec2TopInDoc) {
+                                const segTotal = Math.max(1, sec2TopInDoc - sec1TopInDoc);
+                                const segT = Math.min(1, Math.max(0, (scrollTop - sec1TopInDoc) / segTotal));
+                                const segFrames = Math.max(1, Math.min(frameCount - 1, targetIndexAtSec2 - targetIndexAtSec1Start));
+                                frameIndex = targetIndexAtSec1Start + Math.floor(segT * segFrames);
+                            } else {
+                                const segTotal = Math.max(1, (document.documentElement.scrollHeight - window.innerHeight) - sec2TopInDoc);
+                                const segT = Math.min(1, Math.max(0, (scrollTop - sec2TopInDoc) / segTotal));
+                                const segFrames = frameCount - 1 - targetIndexAtSec2;
+                                frameIndex = targetIndexAtSec2 + Math.floor(segT * segFrames);
+                            }
+                        } else {
+                            // Mobile: multi-segment from sec1->sec2->...->sec9
+                            const segments = [
+                                { start: sec1TopInDoc, end: sec2TopInDoc, a: idx1, b: idx2 },
+                                { start: sec2TopInDoc, end: sec3TopInDoc, a: idx2, b: idx3 },
+                                { start: sec3TopInDoc, end: sec4TopInDoc, a: idx3, b: idx4 },
+                                { start: sec4TopInDoc, end: sec5TopInDoc, a: idx4, b: idx5 },
+                                { start: sec5TopInDoc, end: sec6TopInDoc, a: idx5, b: idx6 },
+                                { start: sec6TopInDoc, end: sec7TopInDoc, a: idx6, b: idx7 },
+                                { start: sec7TopInDoc, end: sec8TopInDoc, a: idx7, b: idx8 },
+                                { start: sec8TopInDoc, end: sec9TopInDoc, a: idx8, b: idx9 },
+                                { start: sec9TopInDoc, end: document.documentElement.scrollHeight - window.innerHeight, a: idx9, b: frameCount - 1 }
+                            ];
+
+                            frameIndex = idx1;
+                            for (const s of segments) {
+                                const start = s.start;
+                                const end = s.end;
+                                if (scrollTop >= start && scrollTop <= end) {
+                                    const segTotal = Math.max(1, end - start);
+                                    const segT = Math.min(1, Math.max(0, (scrollTop - start) / segTotal));
+                                    frameIndex = s.a + Math.floor(segT * Math.max(0, s.b - s.a));
+                                    break;
+                                }
+                            }
+                        }
+
+                        frameIndex = clampIndex(frameIndex);
+
+                        renderFrame(frameIndex);
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            // Intersection Observer mimicking Framer Motion staggered load logic safely inside plain DOM structures
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.25 // Activates when 25% of the target section layout hits viewport boundaries
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Fade in child text nodes smoothly
+                        const items = entry.target.querySelectorAll('.reveal-element > *');
+                        items.forEach((item, idx) => {
+                            item.style.transitionDelay = `${idx * 150}ms`;
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        });
+                    } else {
+                        // Soft fade out when rolling away from focal points to clear clutter
+                        entry.target.classList.remove('active');
+                    }
+                });
+            }, observerOptions);
+
+            // Apply monitoring loops to sections safely
+            document.querySelectorAll('.scroll-section .reveal-element').forEach(sectionContent => {
+                observer.observe(sectionContent);
+                // Apply inline resets for nested transitions inside active tracking blocks
+                const childNodes = sectionContent.children;
+                for (let child of childNodes) {
+                    child.style.opacity = '0';
+                    child.style.transform = 'translateY(20px)';
+                    child.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+                }
+            });
+
+            // Fire layout setup initialization
+            setTimeout(resizeCanvas, 100);
+        });
+    </script>
+</body>
+</html>
